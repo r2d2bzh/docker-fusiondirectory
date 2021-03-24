@@ -1,0 +1,70 @@
+--- class_StringAttribute.inc	2019-09-05 14:29:21.042880488 +0200
++++ class_StringAttribute.inc	2019-09-05 16:29:46.188944820 +0200
+@@ -26,6 +26,8 @@
+   protected $pattern;
+   protected $example;
+   protected $autocomplete = NULL;
++  protected $warningMessage;
++  protected $disablePhpValidation;
+   protected $trim         = FALSE;
+ 
+   /*! \brief The constructor of StringAttribute
+@@ -36,18 +38,32 @@
+    *  \param boolean $required Is this attribute mandatory or not
+    *  \param mixed $defaultValue The default value for this attribute
+    *  \param string $acl The name of the acl for this attribute if he does not use its own. (Leave empty if he should use its own like most attributes do)
+-   *  \param string $regexp A regular expression that should be matched by the value of this attribute in order for it to be considered valid. Will be used as a PHP regexp and as an html5 input pattern.
++   *  \param string $regexp A regular expression that should be matched by the value of this attribute in order for it to be considered valid. 
++   *   Will be used as a PHP regexp or as an html5 input pattern (see $disablePhpValidation).
+    *  \param string $example An example of a valid value
++   *  \param string $warningMessage Message shown when regexp validation fail
++   *  \param boolean $disablePhpValidation Select a PHP validation or html5 input pattern
+    */
+-  function __construct ($label, $description, $ldapName, $required = FALSE, $defaultValue = "", $acl = "", $regexp = "", $example = NULL)
++  function __construct ($label, 
++    $description = "", 
++    $ldapName, $required = FALSE, 
++    $defaultValue = "", 
++    $acl = "", 
++    $regexp = "", 
++    $example = NULL, 
++    $warningMessage = "", 
++    $disablePhpValidation = false
++  )
+   {
+     parent::__construct($label, $description, $ldapName, $required, $defaultValue, $acl);
+     $this->pattern = $regexp;
++    $this->warningMessage = $warningMessage;
++    $this->disablePhpValidation = $disablePhpValidation;
+     $this->example = ($example === NULL ? $defaultValue : $example);
+   }
+ 
+   function setExample ($example)
+-  {
++  {                
+     $this->example = $example;
+   }
+ 
+@@ -69,6 +85,13 @@
+     if ($this->autocomplete !== NULL) {
+       $attributes['autocomplete'] = ($this->autocomplete ? 'on' : 'off' );
+     }
++    if ($this->disablePhpValidation && $this->pattern !== '') {
++      $attributes['pattern'] = ($this->pattern);
++    }
++    if ($this->warningMessage !== '') {
++      $attributes['title'] = ($this->warningMessage);
++    }
++      
+     $display  = $this->renderInputField('text', $id, $attributes);
+     return $this->renderAcl($display);
+   }
+@@ -93,7 +116,7 @@
+ 
+   function validate ()
+   {
+-    if (($this->pattern !== "") && !preg_match($this->pattern, $this->value)) {
++    if (!$this->disablePhpValidation && ($this->pattern !== "") && !preg_match($this->pattern, $this->value)) {
+       return msgPool::invalid($this->getLabel(), $this->value, $this->pattern, htmlentities($this->example));
+     }
+   }

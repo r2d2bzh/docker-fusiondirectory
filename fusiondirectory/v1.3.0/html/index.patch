@@ -1,0 +1,35 @@
+--- index.php	2020-11-24 15:12:48.445981407 +0100
++++ index.php	2020-11-24 15:40:53.552491650 +0100
+@@ -30,6 +30,7 @@
+ header('X-XSS-Protection: 1; mode=block');
+ header('X-Content-Type-Options: nosniff');
+ header('X-Frame-Options: deny');
++header('Strict-Transport-Security: max-age=63113904; includeSubDomains; preload; always;');
+ 
+ /* Display the login page and exit() */
+ function displayLogin()
+@@ -49,12 +50,14 @@
+   $smarty->assign ('year',      date('Y'));
+   $smarty->append ('css_files', get_template_path('login.css'));
+   $smarty->assign('title',      _('Sign in'));
++  $smarty->assign('icpNumber',  getenv('ICP_NUMBER'));
+ 
+   /* Some error to display? */
+   if (!isset($message)) {
+     $message = "";
+   }
+-  $smarty->assign ("message", $message);
++  // htmlspecialchars prevents XSS flaw
++  $smarty->assign ("message", htmlspecialchars($message));
+ 
+   /* Display SSL mode warning? */
+   if (($ssl != '') && ($config->get_cfg_value('warnSSL') == 'TRUE')) {
+@@ -407,6 +410,8 @@
+     ));
+ 
+     if ($success) {
++      /* Session hijacking protection */
++      session_regenerate_id();
+       /* Everything went well, redirect to main.php */
+       static::redirect();
+     }

@@ -1,0 +1,25 @@
+--- class_dashBoardPPolicy.inc	2019-06-11 15:52:53.241188142 +0200
++++ class_dashBoardPPolicy.inc	2019-06-11 15:59:50.564227018 +0200
+@@ -57,13 +57,7 @@
+       'user' => array(
+         'uid'             => _('Login'),
+         'cn'              => _('Name'),
+-        'telephoneNumber' => _('Phone number'),
+         'expirationDate'  => _('Expiration date'),
+-      ),
+-      'manager' => array(
+-        'manager_cn'      => _('Name'),
+-        'manager_mail'    => _('Email'),
+-        'manager_phone'   => _('Phone number'),
+       )
+     );
+ 
+@@ -105,8 +99,6 @@
+         'uid'                   => 'raw',
+         'cn'                    => 'raw',
+         'mail'                  => 'raw',
+-        'telephoneNumber'       => 'raw',
+-        'manager'               => 'raw',
+         'pwdChangedTime'        => 1,
+         'pwdPolicySubentry'     => 1,
+         'pwdAccountLockedTime'  => 1,

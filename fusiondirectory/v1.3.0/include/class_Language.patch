@@ -1,0 +1,76 @@
+--- class_Language.inc	2019-06-21 19:57:08.000000000 +0200
++++ class_Language.inc	2020-02-13 16:50:36.400488220 +0100
+@@ -137,35 +137,7 @@
+     /* locales in english */
+     $tmp_english = array(
+       'en_US' => 'English',
+-      'af_ZA' => 'Afrikaans',
+-      'ar_EG' => 'Arabic',
+-      'ca_ES' => 'Catalan',
+-      'cs_CZ' => 'Czech',
+-      'de_DE' => 'German',
+-      'el_GR' => 'Greek',
+-      'es_CO' => 'Colombian Spanish',
+-      'es_ES' => 'Spanish',
+-      'es_VE' => 'Venezuelan',
+-      'fa_IR' => 'Persian',
+-      'fi_FI' => 'Finnish',
+-      'fr_FR' => 'French',
+-      'hu_HU' => 'Hungarian',
+-      'id_ID' => 'Indonesian',
+-      'it_IT' => 'Italian',
+-      'ja_JP' => 'Japanese',
+-      'ko_KR' => 'Korean',
+-      'lv_LV' => 'Latvian',
+-      'nb_NO' => 'Norwegian Bokmål',
+-      'nl_NL' => 'Dutch',
+-      'pl_PL' => 'Polish',
+-      'pt_BR' => 'Brazilian',
+-      'pt_PT' => 'Portuguese',
+-      'ru_RU' => 'Russian',
+-      'sv_SE' => 'Swedish',
+-      'tr_TR' => 'Turkish',
+-      'vi_VN' => 'Vietnamese',
+-      'zh_TW' => 'Taiwanese',
+-      'zh_CN' => 'Chinese',
++      'fr_FR' => 'French'
+     );
+ 
+     $ret = array();
+@@ -173,35 +145,7 @@
+       /* locales in their own language */
+       $tmp_ownlang = array(
+         'en_US' => 'English',
+-        'ar_EG' => 'عربية',
+-        'af_ZA' => 'Afrikaans',
+-        'ca_ES' => 'Català',
+-        'cs_CZ' => 'Česky',
+-        'de_DE' => 'Deutsch',
+-        'el_GR' => 'ελληνικά',
+-        'es_CO' => 'Español Colombiano',
+-        'es_ES' => 'Español',
+-        'es_VE' => 'Castellano',
+-        'fa_IR' => 'پارسی',
+-        'fi_FI' => 'Suomi',
+-        'fr_FR' => 'Français',
+-        'hu_HU' => 'Magyar',
+-        'id_ID' => 'Bahasa Indonesia',
+-        'it_IT' => 'Italiano',
+-        'ja_JP' => '日本語',
+-        'ko_KR' => '한국어',
+-        'lv_LV' => 'Latviešu valoda',
+-        'nb_NO' => 'Norsk bokmål',
+-        'nl_NL' => 'Nederlands',
+-        'pl_PL' => 'Polski',
+-        'pt_BR' => 'Português (Brasil)',
+-        'pt_PT' => 'Português',
+-        'ru_RU' => 'русский язык',
+-        'sv_SE' => 'Svenska',
+-        'tr_TR' => 'Türkçe',
+-        'vi_VN' => 'Tiếng Việt',
+-        'zh_TW' => 'Taiwanese',
+-        'zh_CN' => '中文, 汉语, 漢語',
++        'fr_FR' => 'Français'
+       );
+ 
+       foreach ($tmp_english as $key => $name) {

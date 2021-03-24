@@ -1,0 +1,75 @@
+--- class_ogroup.inc	2020-10-19 16:22:19.253488095 +0200
++++ class_ogroup.inc	2021-01-05 17:20:02.208553338 +0100
+@@ -184,22 +184,6 @@
+         'icon'        => 'geticon.php?context=types&icon=resource-group&size=16',
+         'tabClass'    => 'ogrouptabs',
+       )),
+-      'plForeignKeys'  => array(
+-        'member' => array(
+-          array('user',               'dn','member=%oldvalue%','*'),
+-          array('ogroup',             'dn','member=%oldvalue%','*'),
+-          array('application',        'dn','member=%oldvalue%','*'),
+-          array('serverGeneric',      'dn','member=%oldvalue%','*'),
+-          array('workstationGeneric', 'dn','member=%oldvalue%','*'),
+-          array('terminalGeneric',    'dn','member=%oldvalue%','*'),
+-          array('phoneGeneric',       'dn','member=%oldvalue%','*'),
+-          array('printGeneric',       'dn','member=%oldvalue%','*'),
+-        ),
+-        'owner' => array(
+-          array('user','dn','owner=%oldvalue%','*')
+-        )
+-      ),
+-
+       'plProvidedAcls'  => parent::generatePlProvidedAcls(static::getAttributesInfo())
+     );
+   }
+@@ -214,7 +198,8 @@
+           new StringAttribute(
+             _('Name'), _('Name of this group'),
+             'cn', TRUE,
+-            '', '', (strict_uid_mode() ? '/^[a-z0-9_-]+$/' : '/^[a-z0-9_.-]+$/i')
++            '', '', '^[a-zA-Z0-9_-]+$', '',
++            _("digit, '_' (underscore) and '-' (dash) allowed"), TRUE
+           ),
+           new TextAreaAttribute(
+             _('Description'), _('Short description of this group'),
+@@ -236,23 +221,6 @@
+             array(), 'dn'
+           )
+         )
+-      ),
+-      'system_trust' => array(
+-        'name'  => _('System trust'),
+-        'icon'  => 'geticon.php?context=status&icon=locked&size=16',
+-        'attrs' => array(
+-          new SelectAttribute(
+-            _('Trust mode'), _('Type of authorization for those hosts'),
+-            'trustMode', FALSE,
+-            array('', 'fullaccess', 'byhost'),
+-            '',
+-            array(_('disabled'), _('full access'), _('allow access to these hosts'))
+-          ),
+-          new SystemsAttribute(
+-            '', _('Only allow this group to connect to this list of hosts'),
+-            'host', FALSE
+-          )
+-        )
+       )
+     );
+   }
+@@ -261,15 +229,6 @@
+   {
+     parent::__construct($dn, $object, $parent, $mainTab);
+ 
+-    $this->attributesAccess['trustMode']->setInLdap(FALSE);
+-    $this->attributesAccess['trustMode']->setManagedAttributes(
+-      array(
+-        'multiplevalues' => array('notbyhost' => array('','fullaccess')),
+-        'erase' => array(
+-          'notbyhost' => array('host')
+-        )
+-      )
+-    );
+     if ((count($this->host) == 1) && ($this->host[0] == '*')) {
+       $this->trustMode = 'fullaccess';
+     } elseif (count($this->host) > 0) {

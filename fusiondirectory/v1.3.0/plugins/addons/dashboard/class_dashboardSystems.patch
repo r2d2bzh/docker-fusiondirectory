@@ -1,0 +1,12 @@
+--- class_dashboardSystems.inc	2019-06-11 16:10:29.549134695 +0200
++++ class_dashboardSystems.inc	2019-06-11 16:08:51.084385882 +0200
+@@ -57,8 +57,7 @@
+     parent::__construct($dn, $object, $parent, $mainTab);
+ 
+     $this->stats = array(
+-      'systems' => $this->systems_stats(),
+-      'argonaut' => $this->argonaut_stats(),
++      'systems' => $this->systems_stats()
+     );
+     $this->pc_ids = $this->computer_ids_rules();
+   }

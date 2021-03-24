@@ -1,0 +1,11 @@
+--- class_ldap.inc	2019-05-29 16:17:30.807550614 +0200
++++ class_ldap.inc	2019-05-29 16:18:05.483782408 +0200
+@@ -983,7 +983,7 @@
+     $admin  = escapeshellarg($this->binddn);
+     $filter = escapeshellarg($filter);
+ 
+-    $cmd = 'ldapsearch'.($this->tls ? ' -ZZ' : '')." -x -LLLL -D {$admin} {$filter} {$limit} {$scope} -H {$host} -b {$dn} -w {$pwd} ";
++    $cmd = 'ldapsearch -x -LLLL -D '. $admin . ' -H '. $host .' -w ' . $pwd .' -b '. $dn;
+ 
+     // Create list of process pipes
+     $descriptorspec = array(

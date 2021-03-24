@@ -1,0 +1,18 @@
+--- class_simpleManagement.inc	2019-05-28 15:17:16.777858193 +0200
++++ class_simpleManagement.inc	2019-05-28 15:13:50.178132656 +0200
+@@ -224,12 +224,12 @@
+     }
+ 
+     // Build filter
+-    if (session::global_is_set(get_class($this).'_filter')) {
++    /*if (session::global_is_set(get_class($this).'_filter')) {
+       $filter = session::global_get(get_class($this).'_filter');
+-    } else {
++    } else {*/
+       $filter = new filter($this->filterXMLPath);
+       $filter->setObjectStorage($this->storagePoints);
+-    }
++    //}
+     $this->setFilter($filter);
+ 
+     // Build headpage
