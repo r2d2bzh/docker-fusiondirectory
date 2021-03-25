@@ -2,7 +2,7 @@ FROM tiredofit/fusiondirectory:2.6.2
 
 ARG FUSION_PATH=/www/fusiondirectory/
 ARG FUSION_PLUGIN_PATH=./assets/fusiondirectory-plugins/
-ARG LOCAL_FUSION_PATH=fusiondirectory/v1.3.0/
+ARG LOCAL_FUSION_PATH=fusiondirectory/
 
 COPY $LOCAL_FUSION_PATH /tmpFusion/
 RUN find /tmpFusion -name '*.patch' -type f | xargs -i cp {} /www/fusiondirectory/ && rm -rf /tmpFusion
