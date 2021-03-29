@@ -1,0 +1,10 @@
+--- login.tpl	2020-11-05 16:39:24.000000000 +0100
++++ login.new	2021-03-29 10:53:15.842448633 +0200
+@@ -74,6 +74,7 @@
+ 
+ {$errors}
+ 
++{if $icpNumber}<div class="login-footer">{$icpNumber}</div>{/if}
+ </div>
+ 
+ {include file={filePath file="copynotice.tpl"}}

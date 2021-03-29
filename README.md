@@ -12,7 +12,9 @@ This openldap should already contains all needed objects for fusiondirectory.
 
 The icp can be pass as the following environment variable ICP_NUMBER. It is then assigned to the icpNumber variable inside index.php.
 
-You can then use the icpNumber variable in your own theme to display the icp number.
+If you are using the breezy theme, the icp number will be displayed on the footer of the login page.
+
+You can also use the icpNumber variable in your own theme to display the icp number the way you want.
 
 ## Development
 
