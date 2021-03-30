@@ -3,7 +3,7 @@ Docker image of FusionDirectory based on [tiredofit/docker-fusiondirectory](http
 
 ## Prerequisites
 
-Before running this docker, you should ensure that an openldap is running and accessible by this docker fusiondirectory.
+Before running this docker, you should ensure that an openldap is running and accessible to this docker fusiondirectory.
 This openldap should already contains all needed objects for fusiondirectory.
 
 ## Additional tweaks
