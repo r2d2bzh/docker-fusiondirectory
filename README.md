@@ -8,13 +8,13 @@ This openldap should already contains all needed objects for fusiondirectory.
 
 ## Additional tweaks
 
-### icp number support
+### ICP number support
 
-The icp can be pass as the following environment variable ICP_NUMBER. It is then assigned to the icpNumber variable inside index.php.
+The [ICP](https://en.wikipedia.org/wiki/ICP_license) can be pass as the following environment variable ICP_NUMBER. It is then assigned to the icpNumber variable inside index.php.
 
-If you are using the breezy theme, the icp number will be displayed on the footer of the login page.
+If you are using the breezy theme, the [ICP](https://en.wikipedia.org/wiki/ICP_license) number will be displayed on the footer of the login page.
 
-You can also use the icpNumber variable in your own theme to display the icp number the way you want.
+You can also use the icpNumber variable in your own theme to display the ICP number the way you want.
 
 ## Development
 
@@ -25,9 +25,9 @@ We use *patch files* in order to update files from the base image.
 The fusiondirectory file tree is reproduced under the fusiondirectory path.
 For every modified files you will find a patch file.
 
-If you need to create a change, you can execute a bash in this docker and do the wanted changes in a new file.
-Once you have both your changes and the original file, you can generate the patch file with the following command:
+If you need to modify fusiondirectory behavior, you can modify an existing patch file or create a new one.
 
+To create a patch file, use the following command:
 ``` sh
 diff -u class_user.inc class_user_new.inc > class_user.patch
 ```
