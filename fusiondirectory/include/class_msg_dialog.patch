@@ -1,0 +1,11 @@
+--- class_msg_dialog.inc	2020-11-05 16:39:24.000000000 +0100
++++ class_msg_dialog.new	2021-03-26 15:14:23.444008862 +0100
+@@ -173,8 +173,6 @@
+             </td>
+             <td style="width:100%">
+               <b>'.$this->s_Title.'</b><br/>
+-              '.$this->s_Message.'<br><br/>
+-              '._('Please fix the above error and reload the page.').'
+             </td>
+           </tr>
+         </table></body></html>';

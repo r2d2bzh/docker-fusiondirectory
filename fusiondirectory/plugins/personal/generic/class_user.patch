@@ -1,0 +1,237 @@
+--- class_user.inc	2020-10-19 16:22:19.253488095 +0200
++++ class_user.inc	2021-01-26 13:38:05.362512628 +0100
+@@ -42,10 +42,8 @@
+     parent::__construct (
+       $description, $ldapName,
+       array(
+-        new SelectAttribute(
+-          _('Password method'), _('Password hash method to use'),
+-          $ldapName.'_pwstorage', TRUE,
+-          array_keys($pwd_methods), '', array_values($pwd_methods)
++        new HiddenAttribute(
++          $ldapName.'_pwstorage'
+         ),
+         new PasswordAttribute(
+           _('Password'), _('Password (Leave empty if you do not wish to change it)'),
+@@ -108,11 +106,18 @@
+     }
+   }
+ 
++  function console_log( $data ){
++    echo '<script>';
++    echo 'console.log('. json_encode( $data ) .')';
++    echo '</script>';
++  }
++
+   /*! \brief Loads this attribute value from the attrs array
+    */
+   protected function loadAttrValue ($attrs)
+   {
+-    if (isset($attrs[$this->getLdapName()])) {
++    // uid special case here is only for user template importations... to improve
++    if ((!empty($attrs) && $attrs["uid"] && $attrs["uid"][0] !== "%r[10,15,d]|%") || isset($attrs[$this->getLdapName()])) {
+       $this->setValue($this->inputValue($attrs[$this->getLdapName()][0]));
+       $this->setRequired(FALSE);
+       $this->attributes[1]->setRequired(FALSE);
+@@ -268,7 +273,7 @@
+ 
+ class user extends simplePlugin
+ {
+-  var $objectclasses  = array('inetOrgPerson','organizationalPerson','person');
++  var $objectclasses  = array('inetOrgPerson','organizationalPerson','person', 'gosaMailAccount');
+ 
+   private $was_locked;
+ 
+@@ -316,67 +321,32 @@
+           new StringAttribute (
+             _('Last name'), _('Last name of this user'),
+             'sn', TRUE,
+-            '', '', '/[^,+"?()=<>;\\\\]/'
++            '', '', "[^,+]+",'', _("Please do not use '+' (plus sign) or ',' (comma)."), true
+           ),
+           new StringAttribute (
+             _('First name'), _('First name of this user'),
+             'givenName', TRUE,
+-            '', '', '/[^,+"?()=<>;\\\\]/'
+-          ),
+-          new TextAreaAttribute (
+-            _('Description'), _('Short description of the user'),
+-            'description', FALSE
++            '', '', "[^,+]+",'', _("Please do not use '+' (plus sign) or ',' (comma)."), true
+           ),
+-          new ImageAttribute (
+-            _('Picture'), _('The avatar for this user'),
+-            'jpegPhoto', FALSE,
+-            150, 200, 'jpeg'
+-          ),
+-        )
+-      ),
+-      'contact' => array(
+-        'name'  => _('Organizational contact information'),
+-        'icon'  => 'geticon.php?context=types&icon=contact&size=16',
+-        'attrs' => array(
+-          new StringAttribute (
+-            _('Location'), _('Location'),
+-            'l', FALSE
++          new StringAttribute(
++            _('Login'), _('Login of this user'),
++            'mail', TRUE,
++            '', '', ''
+           ),
+           new StringAttribute (
+-            _('State'), _('State'),
+-            'st', FALSE
+-          ),
+-          new PostalAddressAttribute (
+-            _('Address'), _('Business postal address'),
+-            'postalAddress', FALSE
++            _('Nickname'), _('Nickname of this user'),
++            'displayName', FALSE,
++            '', '', "[^,+]+",'', _("Please do not use '+' (plus sign) or ',' (comma)."), true
+           ),
+           new StringAttribute (
+-            _('Room No.'), _('Room number'),
+-            'roomNumber', FALSE
+-          ),
+-          new PhoneNumberButtonAttribute (
+-            _('Phone'), _('Business phone number'),
+-            'telephoneNumber', FALSE,
+-            '',
+-            'phone'
+-          ),
+-          new PhoneNumberButtonAttribute (
+-            _('Mobile'), _('Business mobile number'),
+-            'mobile', FALSE,
+-            '',
+-            'mobile'
++            _('Tag'), _('Tags key'),
++            'tags', FALSE,
++            '', '', "[^,+]+",'', _("Please do not use '+' (plus sign) or ',' (comma)."), true
+           ),
+-          new PhoneNumberAttribute (
+-            _('Pager'), _('Business pager number'),
+-            'pager', FALSE
+-          ),
+-          new PhoneNumberAttribute (
+-            _('Fax'), _('Business fax number'),
+-            'facsimileTelephoneNumber', FALSE
+-          ),
+-          new URLAttribute (
+-            _('Homepage'), _('Personal homepage'),
+-            'labeledURI', FALSE
++          new ImageAttribute (
++            _('Picture'), _('The avatar for this user'),
++            'jpegPhoto', FALSE,
++            150, 200, 'jpeg'
+           ),
+         )
+       ),
+@@ -386,74 +356,15 @@
+         'attrs' => array(
+           new BaseSelectorAttribute (get_ou("userRDN")),
+           new UidAttribute (
+-            _('Login'), _('Login of this user'),
++            _('ID'), _('Identifier of the user'),
+             'uid', TRUE
+           ),
+-          new SelectAttribute (
+-            _('Preferred language'), _('Preferred language'),
+-            'preferredLanguage', FALSE,
+-            array_keys($languages), '', array_values($languages)
+-          ),
+           new UserPasswordAttribute(
+             _('Password'), _('Password of the user'),
+             'userPassword', FALSE
+           ),
+         )
+       ),
+-      'homecontact' => array(
+-        'name'  => _('Personal contact information'),
+-        'icon'  => 'geticon.php?context=types&icon=contact&size=16',
+-        'attrs' => array(
+-          new StringAttribute (
+-            _('Display name'), _('Name this user should appear as. Used by Exchange.'),
+-            'displayName', FALSE
+-          ),
+-          new PostalAddressAttribute (
+-            _('Home address'), _('Home postal address'),
+-            'homePostalAddress', FALSE
+-          ),
+-          new PhoneNumberAttribute (
+-            _('Private phone'), _('Home phone number'),
+-            'homePhone', FALSE
+-          ),
+-        )
+-      ),
+-      'organization' => array(
+-        'name'  => _('Organizational information'),
+-        'icon'  => 'geticon.php?context=places&icon=folder&size=16',
+-        'attrs' => array(
+-          new SetAttribute (
+-            new StringAttribute (
+-              _('Title'), _('Title of a person in their organizational context. Each title is one value of this multi-valued attribute'),
+-              'title', FALSE
+-            )
+-          ),
+-          new StringAttribute (
+-            _('Organization'), _('Organization'),
+-            'o', FALSE
+-          ),
+-          new StringAttribute (
+-            _('Unit'), _('Organizational unit this user belongs to'),
+-            'ou', FALSE
+-          ),
+-          new StringAttribute (
+-            _('Department No.'), _('Department number'),
+-            'departmentNumber', FALSE
+-          ),
+-          new StringAttribute (
+-            _('Employee No.'), _('Employee number'),
+-            'employeeNumber', FALSE
+-          ),
+-          new StringAttribute (
+-            _('Employee type'), _('Employee type'),
+-            'employeeType', FALSE
+-          ),
+-          new UserAttribute(
+-            _('Manager'), _('Manager'),
+-            'manager', FALSE
+-          ),
+-        )
+-      ),
+     );
+     if ($config->get_cfg_value('SplitPostalAddress') == 'TRUE') {
+       $attributesInfo['contact']['attrs'][2]->setVisible(FALSE);
+@@ -481,8 +392,9 @@
+     parent::__construct($dn, $object, $parent, $mainTab);
+ 
+     $this->attributesAccess['uid']->setUnique('whole');
++    $this->attributesAccess['mail']->setUnique('whole');
+     $this->attributesAccess['uid']->setAutocomplete(FALSE);
+-    $this->attributesAccess['uid']->setDisabled($this->initially_was_account && !$this->is_template);
++    $this->attributesAccess['uid']->setDisabled(TRUE);
+ 
+     $filename = './plugins/users/images/default.jpg';
+     $fd       = fopen ($filename, 'rb');
+@@ -491,6 +403,13 @@
+     $this->was_locked = $this->attributesAccess['userPassword']->isLocked();
+   }
+ 
++  private function setUid ()
++  {
++    if($this->attributesAccess['uid']->getValue() == '') {
++      $this->attributesAccess['uid']->setValue($this->applyPattern(rand(100000,1000000000000000)));
++    }
++  }
++
+   function is_this_account($attrs)
+   {
+     /* Only inetOrgPerson is needed, it has the two others as SUP classes */
+@@ -543,6 +462,7 @@
+     }
+ 
+     $this->update_cn();
++    $this->setUid();
+     $attribute = $config->get_cfg_value('accountPrimaryAttribute', 'uid');
+ 
+     return $this->create_unique_dn($attribute, get_ou('userRDN').$this->base);

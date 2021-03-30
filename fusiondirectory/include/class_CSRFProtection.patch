@@ -1,0 +1,12 @@
+--- ../fusiondirectory/include/class_CSRFProtection.inc	2019-05-14 12:01:12.917961477 +0200
++++ fusiondirectory/include/class_CSRFProtection.inc	2019-03-14 18:11:07.524713251 +0100
+@@ -61,9 +61,6 @@
+       if (!empty($_SERVER['HTTP_HOST'])) {
+         $target = $_SERVER['HTTP_HOST'];
+       }
+-      if ($target && !hash_equals($origin, $target)) {
+-        throw new FusionDirectoryException('CSRF detected: origin and target are not matching ('.$origin.' != '.$target.')');
+-      }
+     }
+   }
+ }

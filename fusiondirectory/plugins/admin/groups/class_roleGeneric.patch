@@ -1,0 +1,16 @@
+--- class_roleGeneric.inc	2019-09-05 15:05:11.340900794 +0200
++++ class_roleGeneric.inc	2019-09-05 18:27:09.009944876 +0200
+@@ -83,9 +83,10 @@
+         'attrs' => array(
+           new BaseSelectorAttribute (get_ou('roleRDN')),
+           new StringAttribute(
+-            _('Name'), _('Name of this group'),
+-            'cn', TRUE,
+-            '', '', (strict_uid_mode() ? '/^[a-z0-9_-]+$/i' : '/^[a-z0-9_.-]+$/i')
++            _('Name'), _('Name of this role'),
++            'cn', TRUE, 
++            '', '', '^[a-z0-9_-]+$', '', 
++            _("Lowercase, number, '_' (underscore) and '-' (hyphen) allowed"), TRUE
+           ),
+           new StringAttribute (
+             _('Description'), _('Description of the role'),

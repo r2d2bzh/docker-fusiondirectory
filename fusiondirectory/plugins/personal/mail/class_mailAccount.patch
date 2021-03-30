@@ -1,0 +1,11 @@
+--- class_mailAccount.inc	2019-06-17 16:54:38.707696396 +0200
++++ class_mailAccount.inc	2019-06-17 16:55:07.575879492 +0200
+@@ -97,7 +97,7 @@
+         'attrs' => array (
+           new MailAttribute (
+             _('Primary address'), _('Primary mail address'),
+-            'mail', TRUE
++            'mail', FALSE
+           ),
+           new SelectAttribute (
+             _('Server'), _('Specify the mail server where the user will be hosted on'),

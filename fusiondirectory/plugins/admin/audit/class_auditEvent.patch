@@ -1,0 +1,18 @@
+--- class_auditEvent.inc	2020-01-14 14:07:25.915947532 +0100
++++ class_auditEvent.inc	2020-01-16 08:38:52.659170460 +0100
+@@ -75,7 +75,6 @@
+       'main' => array(
+         'name'  => _('Event'),
+         'attrs' => array(
+-          new HiddenAttribute ('fdAuditId'),
+           new GeneralizedTimeDisplayAttribute(
+             _('Time'), _('Date and time this event happened'),
+             'fdAuditDateTime', TRUE
+@@ -94,7 +93,6 @@
+   function __construct ($dn = NULL, $object = NULL, $parent = NULL, $mainTab = FALSE, $attributesInfo = NULL)
+   {
+     parent::__construct($dn, $object, $parent, $mainTab, $attributesInfo);
+-    $this->fdAuditId = random_int(0, PHP_INT_MAX);
+   }
+ 
+   function compute_dn()
