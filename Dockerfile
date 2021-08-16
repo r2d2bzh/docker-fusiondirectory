@@ -30,6 +30,7 @@ RUN patch -i ${FUSION_PATH}class_CSRFProtection.patch ${FUSION_PATH}include/clas
     patch -i ${FUSION_PATH}class_msg_dialog.patch ${FUSION_PATH}include/class_msg_dialog.inc && \
     patch -i ${FUSION_PATH}login.patch ${FUSION_PATH}ihtml/themes/breezy/login.tpl && \
     patch -i ${FUSION_PATH}copynotice.patch ${FUSION_PATH}ihtml/themes/breezy/copynotice.tpl && \
+    patch -i ${FUSION_PATH}framework.patch ${FUSION_PATH}ihtml/themes/breezy/framework.tpl && \
     rm -f ${FUSION_PATH}*.patch
 
 RUN apk add openldap-clients

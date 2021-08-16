@@ -10,11 +10,13 @@ This openldap should already contains all needed objects for fusiondirectory.
 
 ### ICP number support
 
-The [ICP](https://en.wikipedia.org/wiki/ICP_license) can be pass as the following environment variable ICP_NUMBER. It is then assigned to the icpNumber variable inside index.php.
+The [ICP](https://en.wikipedia.org/wiki/ICP_license) can be passed as the following environment variable ICP_NUMBER. It is then assigned to the icpNumber variable inside index.php.
 
 If you are using the breezy theme, the [ICP](https://en.wikipedia.org/wiki/ICP_license) number will be displayed on the footer of the login page.
 
 You can also use the icpNumber variable in your own theme to display the ICP number the way you want.
+
+A custom logout redirection URI can be passed with `LOGOUT_REDIRECT_URI` to bind to your identity provider.
 
 ## Development
 

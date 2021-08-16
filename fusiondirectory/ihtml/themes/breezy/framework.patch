@@ -1,0 +1,14 @@
+--- framework.tpl
++++ framework.new
+@@ -10,7 +10,11 @@
+           <img src="geticon.php?context=actions&amp;icon=go-home&amp;size=22" alt=""/>&nbsp;{t}Main{/t}
+         </a>
+         &nbsp;
++        {if $logoutRedirectUri}
++        <a class="maintitlebar logout" href="{$logoutRedirectUri}">
++        {else}
+         <a class="maintitlebar logout" href="index.php?signout=1">
++        {/if}
+           <img src="geticon.php?context=actions&amp;icon=application-exit&amp;size=22" alt=""/>&nbsp;{t}Sign out{/t}
+         </a>
+         <a class="plugtop">
