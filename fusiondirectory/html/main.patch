@@ -1,0 +1,11 @@
+--- main.php
++++ main.php
+@@ -354,6 +354,8 @@
+   $smarty->assign('game_screen', '');
+ }
+
++$smarty->assign('logoutRedirectUri',  $_SERVER['HTTP_LOGOUT_REDIRECT_URI']);
++
+ $display  = $smarty->fetch(get_template_path('headers.tpl')).
+             $smarty->fetch(get_template_path('framework.tpl'));
+
