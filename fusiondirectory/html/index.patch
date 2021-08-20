@@ -8,12 +8,11 @@
  
  /* Display the login page and exit() */
  function displayLogin()
-@@ -49,12 +50,15 @@
+@@ -49,12 +50,14 @@
    $smarty->assign ('year',      date('Y'));
    $smarty->append ('css_files', get_template_path('login.css'));
    $smarty->assign('title',      _('Sign in'));
 +  $smarty->assign('icpNumber',  getenv('ICP_NUMBER'));
-+  $smarty->assign('logoutRedirectUri',  getenv('LOGOUT_REDIRECT_URI'));
  
    /* Some error to display? */
    if (!isset($message)) {

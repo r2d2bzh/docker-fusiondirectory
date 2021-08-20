@@ -16,7 +16,7 @@ If you are using the breezy theme, the [ICP](https://en.wikipedia.org/wiki/ICP_l
 
 You can also use the icpNumber variable in your own theme to display the ICP number the way you want.
 
-A custom logout redirection URI can be passed with `LOGOUT_REDIRECT_URI` to bind to your identity provider.
+A custom logout redirection URI can be passed in the header `logout-redirect-uri` to bind to your identity provider.
 
 ## Development
 
