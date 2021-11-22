@@ -1,0 +1,37 @@
+--- include/php_setup.inc
++++ include/php_setup_new.inc
+@@ -272,6 +272,25 @@
+ }
+ 
+ /*!
++ * \brief Catches throwables that no one catched
++ *
++ * \param Throwable $throwable
++ */
++function fusiondirectoryExceptionHandler (Throwable $throwable)
++{
++  try {
++    logging::log('error', 'fatal', '', [], 'Uncaught '.get_class($throwable).': '.$throwable->getMessage());
++  } catch (Throwable $t) {
++    /* Ignore exceptions/errors here */
++  }
++
++  http_response_code(400);
++
++  exit(255);
++}
++
++
++/*!
+  * \brief Dummy error handler
+  */
+ function dummy_error_handler()
+@@ -328,6 +347,7 @@
+ $error_collector_mailto = "";
+ 
+ set_error_handler('gosaRaiseError', E_WARNING | E_NOTICE | E_USER_ERROR | E_USER_WARNING | E_USER_NOTICE | E_STRICT);
++set_exception_handler('fusiondirectoryExceptionHandler');
+ 
+ $variables_order = "ES";
+ ini_set("track_vars", 1);
+ 

@@ -33,6 +33,7 @@ RUN patch -i ${FUSION_PATH}class_CSRFProtection.patch ${FUSION_PATH}include/clas
     patch -i ${FUSION_PATH}login.patch ${FUSION_PATH}ihtml/themes/breezy/login.tpl && \
     patch -i ${FUSION_PATH}copynotice.patch ${FUSION_PATH}ihtml/themes/breezy/copynotice.tpl && \
     patch -i ${FUSION_PATH}framework.patch ${FUSION_PATH}ihtml/themes/breezy/framework.tpl && \
+    patch -i ${FUSION_PATH}php_setup.patch ${FUSION_PATH}include/php_setup.inc && \
     rm -f ${FUSION_PATH}*.patch ${FUSION_PATH}html/*.patch
 
 RUN apk add openldap-clients
