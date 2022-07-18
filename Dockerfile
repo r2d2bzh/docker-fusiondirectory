@@ -12,6 +12,7 @@ COPY ${LOCAL_FUSION_PATH}html/index.patch ${FUSION_PATH}html/index.patch
 COPY ${LOCAL_FUSION_PATH}html/main.patch ${FUSION_PATH}html/main.patch
 
 RUN patch -i ${FUSION_PATH}class_CSRFProtection.patch ${FUSION_PATH}include/class_CSRFProtection.inc && \
+    patch -i ${FUSION_PATH}class_filterLDAP.patch ${FUSION_PATH}include/class_filterLDAP.inc && \
     patch -i ${FUSION_PATH}class_ldap.patch ${FUSION_PATH}include/class_ldap.inc && \
     patch -i ${FUSION_PATH}class_simpleManagement.patch ${FUSION_PATH}include/simpleplugin/class_simpleManagement.inc && \
     patch -i ${FUSION_PATH}class_password-methods.patch ${FUSION_PATH}include/password-methods/class_password-methods.inc && \
@@ -21,6 +22,7 @@ RUN patch -i ${FUSION_PATH}class_CSRFProtection.patch ${FUSION_PATH}include/clas
     patch -i ${FUSION_PATH}class_dashBoardPPolicy.patch ${FUSION_PLUGIN_PATH}ppolicy/addons/dashboard/class_dashBoardPPolicy.inc && \
     patch -i ${FUSION_PATH}class_dashboardSystems.patch ${FUSION_PLUGIN_PATH}systems/addons/dashboard/class_dashBoardSystems.inc && \
     patch -i ${FUSION_PATH}user-list.patch ${FUSION_PATH}plugins/admin/users/user-list.xml && \
+    patch -i ${FUSION_PATH}class_userManagement.patch ${FUSION_PATH}plugins/admin/users/class_userManagement.inc && \
     patch -i ${FUSION_PATH}class_ogroup.patch ${FUSION_PATH}plugins/admin/groups/class_ogroup.inc && \
     patch -i ${FUSION_PATH}class_roleGeneric.patch ${FUSION_PATH}plugins/admin/groups/class_roleGeneric.inc && \
     patch -i ${FUSION_PATH}class_department.patch ${FUSION_PATH}plugins/admin/departments/class_department.inc && \
