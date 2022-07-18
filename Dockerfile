@@ -10,6 +10,10 @@ RUN find /tmpFusion -name '*.patch' -type f | xargs -i cp {} /www/fusiondirector
 COPY ${LOCAL_FUSION_PATH}html/ ${FUSION_PATH}html/
 COPY ${LOCAL_FUSION_PATH}html/index.patch ${FUSION_PATH}html/index.patch
 COPY ${LOCAL_FUSION_PATH}html/main.patch ${FUSION_PATH}html/main.patch
+COPY ${LOCAL_FUSION_PATH}nginx/404.html /etc/nginx/html/404.html
+COPY ${LOCAL_FUSION_PATH}nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ${LOCAL_FUSION_PATH}php/php.ini /etc/php7/php.ini
+COPY ${LOCAL_FUSION_PATH}php/php-fpm.conf /etc/php7/php-fpm.conf
 
 RUN patch -i ${FUSION_PATH}class_CSRFProtection.patch ${FUSION_PATH}include/class_CSRFProtection.inc && \
     patch -i ${FUSION_PATH}class_filterLDAP.patch ${FUSION_PATH}include/class_filterLDAP.inc && \
@@ -34,6 +38,7 @@ RUN patch -i ${FUSION_PATH}class_CSRFProtection.patch ${FUSION_PATH}include/clas
     patch -i ${FUSION_PATH}class_msg_dialog.patch ${FUSION_PATH}include/class_msg_dialog.inc && \
     patch -i ${FUSION_PATH}login.patch ${FUSION_PATH}ihtml/themes/breezy/login.tpl && \
     patch -i ${FUSION_PATH}framework.patch ${FUSION_PATH}ihtml/themes/breezy/framework.tpl && \
+    patch -i ${FUSION_PATH}headers.patch ${FUSION_PATH}ihtml/themes/breezy/headers.tpl && \
     patch -i ${FUSION_PATH}php_setup.patch ${FUSION_PATH}include/php_setup.inc && \
     rm -f ${FUSION_PATH}*.patch ${FUSION_PATH}html/*.patch
 

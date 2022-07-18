@@ -1,5 +1,5 @@
---- index.php	2020-11-24 15:12:48.445981407 +0100
-+++ index.php	2020-11-24 15:40:53.552491650 +0100
+--- index.php	2020-11-05 16:39:24.000000000 +0100
++++ index.php	2022-07-18 12:05:48.000000000 +0200
 @@ -30,6 +30,7 @@
  header('X-XSS-Protection: 1; mode=block');
  header('X-Content-Type-Options: nosniff');
@@ -8,11 +8,20 @@
  
  /* Display the login page and exit() */
  function displayLogin()
-@@ -49,12 +50,14 @@
+@@ -49,12 +50,23 @@
    $smarty->assign ('year',      date('Y'));
    $smarty->append ('css_files', get_template_path('login.css'));
    $smarty->assign('title',      _('Sign in'));
-+  $smarty->assign('icpNumber',  getenv('ICP_NUMBER'));
++  $smarty->assign('customTitle',  getenv('CUSTOM_TITLE'));
++
++  $icpNumber =  getenv('ICP_NUMBER');
++  $icpLink = getenv('ICP_LINK');
++  if ($icpNumber && $icpLink) {
++    $smarty->assign('loginFooter',  '<a href="' . $icpLink . '">' . $icpNumber . '</a>');
++  } else if ($icpNumber) {
++    $smarty->assign('loginFooter', $icpNumber);
++  }
++
  
    /* Some error to display? */
    if (!isset($message)) {
@@ -24,7 +33,7 @@
  
    /* Display SSL mode warning? */
    if (($ssl != '') && ($config->get_cfg_value('warnSSL') == 'TRUE')) {
-@@ -407,6 +411,8 @@
+@@ -407,6 +419,8 @@
      ));
  
      if ($success) {

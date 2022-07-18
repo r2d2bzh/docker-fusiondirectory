@@ -1,0 +1,18 @@
+--- headers.tpl	2020-11-05 16:39:24.000000000 +0100
++++ headers.tpl	2022-07-18 11:51:30.695072722 +0200
+@@ -1,12 +1,12 @@
+ <!DOCTYPE html>
+-<html xmlns="http://www.w3.org/1999/xhtml" {if $lang}lang="{$lang}" xml:lang="{$lang}"{/if} {if $rtl}dir="rtl" class="rtl"{else}class="ltr"{/if}>
++<html xmlns="http://www.w3.org/1999/xhtml" {if $rtl}dir="rtl" class="rtl"{else}class="ltr"{/if}>
+ 
+ <head>
+-  <title>FusionDirectory{if isset($title)} - {$title|escape}{elseif isset($headline)} - {$headline|escape}{/if}</title>
++  <title>{if isset($customTitle)}{$customTitle|escape}{else}Xperteye administration{/if}</title>
+ 
+   <meta charset="utf-8"/>
+ 
+-  <meta name="description" content="FusionDirectory - Your Infrastructure Manager"/>
++  <meta name="description" content="FusionDirectory - Login"/>
+   <meta name="author" lang="en" content="FusionDirectory Project"/>
+   <meta name="viewport" content="width=device-width"/>
+ 
