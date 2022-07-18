@@ -1,0 +1,11 @@
+--- class_filterLDAP.inc	2020-11-05 16:39:24.000000000 +0100
++++ class_filterLDAP.inc	2022-07-13 17:40:21.963260022 +0200
+@@ -137,7 +137,7 @@
+         $dnFilter = '';
+       }
+       $ldap->cd($base);
+-
++      array_push($attributes, "+");
+       $ldap->search('(&'.$filter.$dnFilter.')', $attributes, $scope);
+
+       // Check for size limit exceeded messages for GUI feedback
