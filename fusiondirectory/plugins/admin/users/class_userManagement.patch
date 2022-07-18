@@ -1,0 +1,52 @@
+--- class_userManagement.inc	2020-11-05 16:39:24.000000000 +0100
++++ class_userManagement.inc	2022-07-13 17:45:52.876695936 +0200
+@@ -156,7 +156,7 @@
+     // Try to lock/unlock the rest of the entries.
+     $ldap = $config->get_ldap_link();
+     foreach ($allowed as $dn) {
+-      $ldap->cat($dn, array('userPassword'));
++      $ldap->cat($dn, array('userPassword', 'pwdAccountLockedTime'));
+       if ($ldap->count() == 1) {
+
+         // We can't lock empty passwords.
+@@ -207,28 +207,25 @@
+     }
+   }
+
+-  static function filterLockImage($userPassword)
++  static function filterLockImage($pwdAccountLockedTime)
+   {
+     $image = 'images/empty.png';
+-    if (isset($userPassword[0]) && preg_match('/^\{[^\}]/', $userPassword[0])) {
+-      if (preg_match('/^[^\}]*+\}!/', $userPassword[0])) {
+-        $image = 'geticon.php?context=status&icon=object-locked&size=16';
+-      } else {
+-        $image = 'geticon.php?context=status&icon=object-unlocked&size=16';
+-      }
++    echo("<script>console.log('PHP: " . json_encode($pwdAccountLockedTime[0] == '000001010000Z') . "');</script>");
++    if($pwdAccountLockedTime[0] == '000001010000Z') {
++      $image = 'geticon.php?context=status&icon=object-locked&size=16';
++    } else {
++      $image = 'geticon.php?context=status&icon=object-unlocked&size=16';
+     }
+     return $image;
+   }
+-
+-  static function filterLockLabel($userPassword)
++
++  static function filterLockLabel($pwdAccountLockedTime)
+   {
+     $label = '';
+-    if (isset($userPassword[0]) && preg_match('/^\{[^\}]/', $userPassword[0])) {
+-      if (preg_match('/^[^\}]*+\}!/', $userPassword[0])) {
+-        $label = _('Unlock account').'<rowClass:entry-locked/>';
+-      } else {
+-        $label = _('Lock account');
+-      }
++    if ($pwdAccountLockedTime[0] == '000001010000Z') {
++      $label = _('Unlock account').'<rowClass:entry-locked/>';
++    } else {
++      $label = _('Lock account');
+     }
+     return $label;
+   }
