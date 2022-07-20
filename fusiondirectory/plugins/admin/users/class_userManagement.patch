@@ -9,7 +9,7 @@
        if ($ldap->count() == 1) {
 
          // We can't lock empty passwords.
-@@ -207,28 +207,25 @@
+@@ -207,28 +207,24 @@
      }
    }
 
@@ -23,7 +23,6 @@
 -      } else {
 -        $image = 'geticon.php?context=status&icon=object-unlocked&size=16';
 -      }
-+    echo("<script>console.log('PHP: " . json_encode($pwdAccountLockedTime[0] == '000001010000Z') . "');</script>");
 +    if($pwdAccountLockedTime[0] == '000001010000Z') {
 +      $image = 'geticon.php?context=status&icon=object-locked&size=16';
 +    } else {
