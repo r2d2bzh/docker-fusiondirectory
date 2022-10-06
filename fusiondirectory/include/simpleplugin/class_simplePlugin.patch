@@ -1,0 +1,12 @@
+--- class_simplePlugin.inc	2021-05-12 13:40:06.830636715 +0200
++++ class_simplePlugin-fixed.inc	2022-10-06 11:03:56.624899710 +0200
+@@ -1329,6 +1329,9 @@
+     }
+ 
+     $ldap->cd($this->dn);
++    if(empty($this->attrs['userPassword'])){
++      unset($this->attrs['userPassword']);
++    }
+     $ldap->$action($this->attrs);
+     $this->ldap_error = $ldap->get_error();
+ 
