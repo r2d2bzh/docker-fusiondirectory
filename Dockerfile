@@ -20,6 +20,7 @@ RUN patch -i ${FUSION_PATH}class_CSRFProtection.patch ${FUSION_PATH}include/clas
     patch -i ${FUSION_PATH}class_ldap.patch ${FUSION_PATH}include/class_ldap.inc && \
     patch -i ${FUSION_PATH}class_simpleManagement.patch ${FUSION_PATH}include/simpleplugin/class_simpleManagement.inc && \
     patch -i ${FUSION_PATH}class_simplePlugin.patch ${FUSION_PATH}include/simpleplugin/class_simplePlugin.inc && \
+    patch -i ${FUSION_PATH}class_Attribute.patch ${FUSION_PATH}include/simpleplugin/class_Attribute.inc && \
     patch -i ${FUSION_PATH}class_password-methods.patch ${FUSION_PATH}include/password-methods/class_password-methods.inc && \
     patch -i ${FUSION_PATH}class_password-methods-crypt.patch ${FUSION_PATH}include/password-methods/class_password-methods-crypt.inc && \
     patch -i ${FUSION_PATH}class_user.patch ${FUSION_PATH}plugins/personal/generic/class_user.inc && \

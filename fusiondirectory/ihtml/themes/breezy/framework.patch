@@ -1,5 +1,14 @@
---- framework.tpl
-+++ framework.new
+--- framework.tpl	2023-03-07 11:37:58.211250721 +0100
++++ framework_new.tpl	2023-03-17 11:42:12.253548865 +0100
+@@ -2,7 +2,7 @@
+ <body onLoad="javascript:$$('div.debug_div').each(function (a) { a.hide(); });">
+   {$game_screen}
+   {$php_errors}
+-  <form action="main.php{$plug}" name="mainform" id="mainform" method="post" enctype="multipart/form-data">
++  <form action="main.php{$plug}" name="mainform" id="mainform" method="post" enctype="multipart/form-data" autocomplete="off">
+     <div class="setup-header">
+       <div id="header-left">
+         <img id="fd-logo" class="optional" src="geticon.php?context=applications&amp;icon=fusiondirectory&amp;size=48" alt="FusionDirectory logo"/>
 @@ -10,7 +10,11 @@
            <img src="geticon.php?context=actions&amp;icon=go-home&amp;size=22" alt=""/>&nbsp;{t}Main{/t}
          </a>

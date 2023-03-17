@@ -1,0 +1,11 @@
+--- class_Attribute.inc	2023-03-07 11:37:58.219250734 +0100
++++ class_Attribute_patch.inc	2023-03-17 14:01:23.558489070 +0100
+@@ -730,7 +730,7 @@
+ 
+   protected function renderInputField($type, $name, $attributes = array())
+   {
+-    $input  = '<input type="'.$type.'" '.
++    $input  = '<input autocomplete="new-password" type="'.$type.'" '.
+               'name="'.$name.'" id="'.$name.'"'.
+               ($this->disabled ? ' disabled="disabled"' : '');
+     foreach ($attributes as $label => $value) {
