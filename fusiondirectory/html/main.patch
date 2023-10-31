@@ -1,10 +1,11 @@
---- main.php
-+++ main.php
-@@ -354,6 +354,8 @@
+--- main.php	2020-11-05 16:39:24.000000000 +0100
++++ main.php	2023-10-31 17:25:53.000000000 +0100
+@@ -354,6 +354,9 @@
    $smarty->assign('game_screen', '');
  }
 
-+$smarty->assign('logoutRedirectUri',  $_SERVER['HTTP_LOGOUT_REDIRECT_URI']);
++$smarty->assign('logoutRedirectUri', $_SERVER['HTTP_LOGOUT_REDIRECT_URI']);
++$smarty->assign('customTitle', getenv('CUSTOM_TITLE'));
 +
  $display  = $smarty->fetch(get_template_path('headers.tpl')).
              $smarty->fetch(get_template_path('framework.tpl'));
