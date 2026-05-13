@@ -10,12 +10,3 @@
            ),
            new TextAreaAttribute(
              _('Description'), sprintf(_('Short description of this %s'), $name),
-@@ -78,7 +79,7 @@
-           ),
-           new StringAttribute(
-             _('Website'), sprintf(_('Website of this %s'), $name),
--            'labeledURI', FALSE
-+            'labeledURI', TRUE
-           ),
-           new UserAttribute(
-             _('Manager'), sprintf(_('Manager of this %s'), $name),
